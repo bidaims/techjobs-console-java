@@ -3,6 +3,7 @@ package org.launchcode.techjobs.console;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Map; //currently unused import statement added by me
 
 /**
  * Created by LaunchCode
@@ -28,7 +29,11 @@ public class TechJobs {
 
         System.out.println("Welcome to LaunchCode's TechJobs App!");
 
+        //*int selection;
         // Allow the user to search until they manually quit
+        //do{
+
+       // }
         while (true) {
 
             String actionChoice = getUserSelection("View jobs by:", actionChoices);
@@ -46,7 +51,7 @@ public class TechJobs {
                     System.out.println("\n*** All " + columnChoices.get(columnChoice) + " Values ***");
 
                     // Print list of skills, employers, etc
-                    for (String item : results) {
+                    for (String item : results) { //key to print job
                         System.out.println(item);
                     }
                 }
@@ -61,11 +66,21 @@ public class TechJobs {
                 String searchTerm = in.nextLine();
 
                 if (searchField.equals("all")) {
-                    System.out.println("Search all fields not yet implemented.");
+                    printJobs(JobData.findByValue(searchTerm));
+                    if(JobData.findByValue(searchTerm).equals("")){
+                        System.out.println("Not here");
+                    }
                 } else {
                     printJobs(JobData.findByColumnAndValue(searchField, searchTerm));
+//                    if (JobData.findByColumnAndValue(searchField, searchTerm).equals("")){
+                            System.out.println("Item not found");
+//                   }
                 }
-            }
+//                if (searchField.equals("location")){
+//                    //printJobs(JobData.findByValue(searchField, searchTerm));
+//                        System.out.println("Item not found"); //print this only if you have figured how to detect item not found
+//                    }
+           }
         }
     }
 
@@ -110,7 +125,13 @@ public class TechJobs {
 
     // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
-
-        System.out.println("printJobs is not implemented yet");
-    }
+        //iterates through the ArrayList collection called someJobs
+        for (HashMap<String, String> job : someJobs) {
+            //iterates through the each hashmap collection called job i.e. fo every job in someJobs
+            for (Map.Entry<String,String> entry : job.entrySet()) {
+             System.out.println(entry.getKey() +": "+ entry.getValue());
+            }
+            System.out.println("*****" + System.lineSeparator() +'\n' +"*****");
+        }
+     }
 }
