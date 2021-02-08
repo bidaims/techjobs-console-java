@@ -40,6 +40,8 @@ public class JobData {
                 values.add(aValue);
             }
         }
+        //sorting the list output
+        Collections.sort(values);
 
         return values;
     }
@@ -65,42 +67,46 @@ public class JobData {
      */
     public static ArrayList<HashMap<String, String>> findByColumnAndValue(String column, String value) {
 
-        // load data, if not already loaded
-        loadData();
 
+        loadData();
+        int i=0;
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
            for (HashMap<String, String> row : allJobs) {
 
                String aValue = row.get(column).toLowerCase();
 
                if (aValue.contains(value.toLowerCase())) {
-                   jobs.add(row);
+                   if (!jobs.contains(row)) {
+                       jobs.add(row);
+                   }
+                   i++;
                }
 
-               if (!value.contains(aValue)) {
-                   System.out.println("Search Term not found!");
-               }
            }
+        if (i==0) { //I used a counter here because if the item is not found, counter will remain zero.
+            System.out.println("Search Term not found!");
+        }
         return jobs;
     }
 
     public static ArrayList<HashMap<String, String>> findByValue(String value) {
 
-        // load data, if not already loaded
         loadData();
+        int x = 0;
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
-//        if (!allJobs.contains(value)) {
-//            System.out.println("Search Term not found!");
-//        }else {
             for (HashMap<String, String> job : allJobs) {
                 for (Map.Entry<String, String> entry : job.entrySet()) {
                     String aValue = entry.getValue().toLowerCase();
                     if (aValue.contains(value.toLowerCase())) {
-                        jobs.add(job);
-                    }else if(!value.contains(aValue)){
-                        System.out.println("help");
+                        if (!jobs.contains(job)) {
+                            jobs.add(job);
+                        }
+                        x++;
                     }
                 }
+            }
+        if(x==0){
+            System.out.println("Try again");
         }
         return jobs;
     }
@@ -144,5 +150,4 @@ public class JobData {
             e.printStackTrace();
         }
     }
-
 }

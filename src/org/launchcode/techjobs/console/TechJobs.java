@@ -3,7 +3,7 @@ package org.launchcode.techjobs.console;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
-import java.util.Map; //currently unused import statement added by me
+import java.util.Map;
 
 /**
  * Created by LaunchCode
@@ -67,19 +67,11 @@ public class TechJobs {
 
                 if (searchField.equals("all")) {
                     printJobs(JobData.findByValue(searchTerm));
-                    if(JobData.findByValue(searchTerm).equals("")){
-                        System.out.println("Not here");
-                    }
-                } else {
+
+              } else {
                     printJobs(JobData.findByColumnAndValue(searchField, searchTerm));
-//                    if (JobData.findByColumnAndValue(searchField, searchTerm).equals("")){
-                            System.out.println("Item not found");
-//                   }
                 }
-//                if (searchField.equals("location")){
-//                    //printJobs(JobData.findByValue(searchField, searchTerm));
-//                        System.out.println("Item not found"); //print this only if you have figured how to detect item not found
-//                    }
+
            }
         }
     }
@@ -127,7 +119,7 @@ public class TechJobs {
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
         //iterates through the ArrayList collection called someJobs
         for (HashMap<String, String> job : someJobs) {
-            //iterates through the each hashmap collection called job i.e. fo every job in someJobs
+            //iterates through the each hashmap collection called job i.e. for every job in someJobs
             for (Map.Entry<String,String> entry : job.entrySet()) {
              System.out.println(entry.getKey() +": "+ entry.getValue());
             }
